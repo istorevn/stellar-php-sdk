@@ -40,18 +40,14 @@ class XdrManageOfferSuccessResult
         return $bytes;
     }
 
-    public static function decode(XdrBuffer $xdr) : XdrManageOfferSuccessResultOffer|XdrManageOfferSuccessResult {
+    public static function decode(XdrBuffer $xdr) : XdrManageOfferSuccessResult {
         $count = $xdr->readInteger32();
         $offersClaimed = array();
         for ($i = 0; $i < $count; $i++) {
             array_push($offersClaimed, XdrClaimAtom::decode($xdr));
         }
         $offer = XdrManageOfferSuccessResultOffer::decode($xdr);
-        if(!empty($offersClaimed)){
-            return new XdrManageOfferSuccessResult($offersClaimed, $offer);
-        }else{
-            return $offer;
-        }
+        return new XdrManageOfferSuccessResult($offersClaimed, $offer);
     }
 
 }
