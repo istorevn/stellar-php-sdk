@@ -50,6 +50,7 @@ class XdrAccountID
         $type = $xdr->readInteger32();
         $accountIdBytes = $xdr->readOpaqueFixed(32);
         $accountId = StrKey::encodeAccountId($accountIdBytes);
+        return new XdrAccountID($accountId);
         if ($type == CryptoKeyType::KEY_TYPE_ED25519) {
             return new XdrAccountID($accountId);
         } else {
